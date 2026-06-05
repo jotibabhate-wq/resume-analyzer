@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Resume Analyzer</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-brain"></i>
+            <span>Resume Analyzer</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="history.html">History</a>
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+
+        <!-- Score Header -->
+        <div class="dashboard-header">
+            <div class="score-summary">
+                <div class="big-score">
+                    <div class="score-ring">
+                        <span id="overallScore">0</span>
+                    </div>
+                    <p>Overall Score</p>
+                </div>
+                <div class="score-details">
+                    <div class="score-item">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <span id="atsScore">0</span>%
+                            <small>ATS Score</small>
+                        </div>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <span id="skillsCount">0</span>
+                            <small>Skills Found</small>
+                        </div>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-key"></i>
+                        <div>
+                            <span id="keywordsCount">0</span>
+                            <small>Keywords</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resume-info">
+                <i class="fas fa-file-pdf"></i>
+                <div>
+                    <h3 id="resumeName">Resume.pdf</h3>
+                    <small id="analyzedDate">Analyzed just now</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-doughnut"></i> Score Breakdown</h3>
+                <canvas id="scoreChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-bar"></i> Skills Analysis</h3>
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Details Row -->
+        <div class="details-row">
+
+            <!-- Skills Found -->
+            <div class="detail-card">
+                <h3><i class="fas fa-check-circle"></i> Skills Found</h3>
+                <div class="skills-list" id="skillsList"></div>
+            </div>
+
+            <!-- Missing Skills -->
+            <div class="detail-card">
+                <h3><i class="fas fa-times-circle"></i> Missing Skills</h3>
+                <div class="skills-list missing" id="missingSkillsList"></div>
+            </div>
+
+            <!-- Keywords -->
+            <div class="detail-card">
+                <h3><i class="fas fa-tags"></i> Top Keywords</h3>
+                <div class="keywords-list" id="keywordsList"></div>
+            </div>
+
+        </div>
+
+        <!-- Suggestions -->
+        <div class="suggestions-card">
+            <h3><i class="fas fa-lightbulb"></i> AI Suggestions</h3>
+            <div class="suggestions-list" id="suggestionsList"></div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-card">
+            <h3><i class="fas fa-file-alt"></i> Resume Summary</h3>
+            <p id="resumeSummary"></p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-row">
+            <button class="btn-primary" onclick="window.location.href='index.html'">
+                <i class="fas fa-upload"></i> Analyze Another
+            </button>
+            <button class="btn-secondary" onclick="window.location.href='history.html'">
+                <i class="fas fa-history"></i> View History
+            </button>
+        </div>
+
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/charts.js"></script>
+    <script src="../js/results.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: resume-analyzer
+    env: node
+    buildCommand: npm install
+    startCommand: node backend/server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PYTHON_PATH
+        value: python3

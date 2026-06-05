@@ -1,0 +1,178 @@
+{
+    "Full Stack Developer": {
+        "description": "Develops both frontend and backend of web applications",
+        "skills": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "REST API",
+            "Git",
+            "Docker",
+            "TypeScript",
+            "Redux"
+        ]
+    },
+    "Frontend Developer": {
+        "description": "Builds user interfaces and web experiences",
+        "skills": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Vue.js",
+            "Angular",
+            "TypeScript",
+            "Tailwind CSS",
+            "Bootstrap",
+            "Redux",
+            "Webpack",
+            "Figma",
+            "Sass"
+        ]
+    },
+    "Backend Developer": {
+        "description": "Builds server side logic and APIs",
+        "skills": [
+            "Node.js",
+            "Python",
+            "Java",
+            "Express.js",
+            "Django",
+            "Flask",
+            "MongoDB",
+            "PostgreSQL",
+            "MySQL",
+            "REST API",
+            "Docker",
+            "Microservices",
+            "Redis"
+        ]
+    },
+    "Data Scientist": {
+        "description": "Analyzes data and builds machine learning models",
+        "skills": [
+            "Python",
+            "Machine Learning",
+            "Deep Learning",
+            "TensorFlow",
+            "PyTorch",
+            "Scikit-learn",
+            "Pandas",
+            "NumPy",
+            "Matplotlib",
+            "NLP",
+            "SQL",
+            "Tableau",
+            "Jupyter",
+            "Statistics"
+        ]
+    },
+    "DevOps Engineer": {
+        "description": "Manages infrastructure and deployment pipelines",
+        "skills": [
+            "Docker",
+            "Kubernetes",
+            "Jenkins",
+            "AWS",
+            "Azure",
+            "Google Cloud",
+            "Terraform",
+            "Ansible",
+            "Linux",
+            "CI/CD",
+            "Git",
+            "Bash",
+            "Nginx",
+            "Monitoring"
+        ]
+    },
+    "Mobile Developer": {
+        "description": "Builds mobile applications for iOS and Android",
+        "skills": [
+            "React Native",
+            "Flutter",
+            "Swift",
+            "Kotlin",
+            "Android",
+            "iOS",
+            "Firebase",
+            "REST API",
+            "Git",
+            "Xcode",
+            "Android Studio"
+        ]
+    },
+    "Machine Learning Engineer": {
+        "description": "Builds and deploys machine learning models",
+        "skills": [
+            "Python",
+            "TensorFlow",
+            "PyTorch",
+            "Scikit-learn",
+            "Deep Learning",
+            "NLP",
+            "Computer Vision",
+            "Docker",
+            "AWS",
+            "Pandas",
+            "NumPy",
+            "Keras",
+            "OpenCV"
+        ]
+    },
+    "UI/UX Designer": {
+        "description": "Designs user interfaces and experiences",
+        "skills": [
+            "Figma",
+            "Adobe XD",
+            "Photoshop",
+            "Illustrator",
+            "Sketch",
+            "Wireframing",
+            "Prototyping",
+            "User Research",
+            "HTML",
+            "CSS",
+            "Design Systems",
+            "Accessibility"
+        ]
+    },
+    "Cloud Engineer": {
+        "description": "Designs and manages cloud infrastructure",
+        "skills": [
+            "AWS",
+            "Azure",
+            "Google Cloud",
+            "Docker",
+            "Kubernetes",
+            "Terraform",
+            "Linux",
+            "Networking",
+            "Security",
+            "CI/CD",
+            "Python",
+            "Bash",
+            "Monitoring"
+        ]
+    },
+    "Cybersecurity Engineer": {
+        "description": "Protects systems and networks from threats",
+        "skills": [
+            "Network Security",
+            "Penetration Testing",
+            "CISSP",
+            "CEH",
+            "Firewalls",
+            "Linux",
+            "Python",
+            "Encryption",
+            "SIEM",
+            "Vulnerability Assessment",
+            "CompTIA"
+        ]
+    }
+}
