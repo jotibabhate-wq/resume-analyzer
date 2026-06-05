@@ -18,11 +18,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, '../frontend/src')));
-app.use(express.static(path.join(__dirname, '../frontend/src/pages')));
-app.use(express.static(path.join(__dirname, '../frontend/src/css')));
-app.use(express.static(path.join(__dirname, '../frontend/src/js')));
+// Serve frontend static files - फक्त हा भाग बदलला आहे
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Routes
 app.use('/api/resume', require('./routes/resume.routes'));
