@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.API_BASE || "https://resume-analyzer-7y62.onrender.com";
 // ===== GET TOKEN =====
 const getToken = () => localStorage.getItem('token');
 
