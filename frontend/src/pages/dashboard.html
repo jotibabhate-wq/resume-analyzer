@@ -117,6 +117,45 @@
             <h3><i class="fas fa-file-alt"></i> Resume Summary</h3>
             <p id="resumeSummary"></p>
         </div>
+        <!-- Job Description Matcher -->
+        <div class="job-matcher-card">
+            <h3><i class="fas fa-briefcase"></i> Job Description Matcher</h3>
+            <p class="job-matcher-desc">Paste a job description to see how well your resume matches</p>
+            <div class="job-input-area">
+                <textarea id="jobDescription" placeholder="Paste the job description here..." rows="6"></textarea>
+                <button class="btn-match" id="matchBtn">
+                    <i class="fas fa-search"></i> Match My Resume
+                </button>
+            </div>
+
+            <!-- Match Results -->
+            <div class="match-results" id="matchResults" style="display:none">
+                <div class="match-score-row">
+                    <div class="match-score-circle">
+                        <span id="matchScore">0</span>
+                        <small>% Match</small>
+                    </div>
+                    <div class="match-info">
+                        <h4 id="matchTitle">Resume Match Result</h4>
+                        <p id="matchMessage"></p>
+                    </div>
+                </div>
+                <div class="match-details-row">
+                    <div class="match-detail-box">
+                        <h5><i class="fas fa-check-circle"></i> Matched Skills</h5>
+                        <div id="matchedSkills" class="skills-list"></div>
+                    </div>
+                    <div class="match-detail-box">
+                        <h5><i class="fas fa-times-circle"></i> Missing Skills</h5>
+                        <div id="missingJobSkills" class="skills-list"></div>
+                    </div>
+                    <div class="match-detail-box">
+                        <h5><i class="fas fa-key"></i> Job Keywords</h5>
+                        <div id="jobKeywords" class="keywords-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Actions -->
         <div class="actions-row">
