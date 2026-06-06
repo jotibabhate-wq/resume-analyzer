@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
     // Send Email button
+    // Initialize EmailJS with your public key
+    emailjs.init('Fot6ZaKefX52_uLqe');
+
+    // Send Email button
     const sendEmailBtn = document.getElementById('sendEmailBtn');
     if (sendEmailBtn) {
         sendEmailBtn.addEventListener('click', async () => {
@@ -15,10 +19,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const parsed = JSON.parse(stored);
-            const analysisId = parsed.analysis?._id || parsed._id;
+            const analysis = parsed.analysis || parsed;
+            const resume = parsed.resume || {};
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-            if (!analysisId) {
-                showToast('Analysis ID not found!', 'error');
+            if (!user.email) {
+                showToast('Please login first!', 'error');
                 return;
             }
 
@@ -26,29 +32,40 @@ document.addEventListener('DOMContentLoaded', async () => {
             sendEmailBtn.disabled = true;
 
             try {
-                const res = await API.sendEmailReport(analysisId);
+                const templateParams = {
+                    to_email: user.email,
+                    user_name: user.name || 'User',
+                    resume_name: resume.fileName || 'Resume',
+                    score: analysis.score || 0,
+                    ats_score: analysis.atsScore || 0,
+                    skills_count: (analysis.skills || []).length,
+                    skills: (analysis.skills || []).join(', ') || 'None found',
+                    missing_skills: (analysis.missingSkills || []).join(', ') || 'None',
+                    suggestions: (analysis.suggestions || []).join(' | ') || 'None',
+                    summary: analysis.summary || 'No summary available'
+                };
 
-                if (res.success) {
-                    showToast('✅ Report sent to your email!', 'success');
-                    sendEmailBtn.innerHTML = '<i class="fas fa-check"></i> Email Sent!';
-                    setTimeout(() => {
-                        sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
-                        sendEmailBtn.disabled = false;
-                    }, 3000);
-                } else {
-                    showToast(res.message || 'Failed to send email', 'error');
+                await emailjs.send(
+                    'service_29ub2aj',
+                    'template_ddvqpua',
+                    templateParams
+                );
+
+                showToast('✅ Report sent to ' + user.email + '!', 'success');
+                sendEmailBtn.innerHTML = '<i class="fas fa-check"></i> Email Sent!';
+                setTimeout(() => {
                     sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
                     sendEmailBtn.disabled = false;
-                }
-            } catch (err) {
-                showToast('Something went wrong', 'error');
+                }, 3000);
+
+            } catch (error) {
+                console.error('Email error:', error);
+                showToast('Failed to send: ' + (error.text || error.message), 'error');
                 sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
                 sendEmailBtn.disabled = false;
             }
         });
     }
-
-    let analysisData = null;
 
     // Check if coming from history view
     const viewResumeId = localStorage.getItem('viewResumeId');
