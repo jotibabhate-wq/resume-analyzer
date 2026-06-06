@@ -8,7 +8,10 @@ const getHeaders = () => ({
     Authorization: `Bearer ${getToken()}`
 });
 
+
+
 // ===== AUTH APIs =====
+
 const API = {
     // Send email report
     sendEmailReport: async (analysisId) => {
@@ -16,6 +19,15 @@ const API = {
             method: 'POST',
             headers: getHeaders(),
             body: JSON.stringify({ analysisId })
+        });
+        return res.json();
+    },
+    // Google Login
+    googleLogin: async (credential) => {
+        const res = await fetch(`${API_BASE}/google/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credential })
         });
         return res.json();
     },

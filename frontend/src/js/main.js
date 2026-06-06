@@ -1,3 +1,25 @@
+// ===== GOOGLE LOGIN CALLBACK =====
+const handleGoogleLogin = async (response) => {
+    try {
+        showLoading();
+        const res = await API.googleLogin(response.credential);
+        hideLoading();
+
+        if (res.success) {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data));
+            closeModal('loginModal');
+            closeModal('registerModal');
+            checkAuth();
+            showToast('✅ Google login successful!', 'success');
+        } else {
+            showToast(res.message || 'Google login failed', 'error');
+        }
+    } catch (err) {
+        hideLoading();
+        showToast('Google login failed', 'error');
+    }
+};
 // ===== CHECK AUTH =====
 const checkAuth = () => {
     const token = localStorage.getItem('token');

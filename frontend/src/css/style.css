@@ -1576,3 +1576,29 @@ a:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 114, 198, 0.4);
 }
+
+/* ===== DIVIDER ===== */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+}
+
+.divider span {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.g_id_signin {
+    width: 100% !important;
+}
