@@ -2,12 +2,19 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 const connectDB = require('./config/db');
 
 dotenv.config();
 connectDB();
 
 const app = express();
+
+// Create uploads folder if not exists
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Middleware
 app.use(cors({
@@ -18,18 +25,23 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Routes - API routes FIRST (सर्वात आधी)
+// Serve static files
+app.use(express.static(path.join(__dirname, '../frontend/src')));
+app.use(express.static(path.join(__dirname, '../frontend/src/pages')));
+app.use(express.static(path.join(__dirname, '../frontend/src/css')));
+app.use(express.static(path.join(__dirname, '../frontend/src/js')));
+
+// API Routes
 app.use('/api/resume', require('./routes/resume.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/history', require('./routes/history.routes'));
 
-// ✅ Static files - SECOND (नंतर)
-app.use(express.static(path.join(__dirname, '../frontend/src')));
-app.use(express.static(path.join(__dirname, '../frontend/src/css')));
-app.use(express.static(path.join(__dirname, '../frontend/src/js')));
-
-// ✅ Serve HTML pages - THIRD
+// HTML page routes
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
+});
+
+app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
 });
 
@@ -41,9 +53,9 @@ app.get('/history.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/src/pages/history.html'));
 });
 
-// ✅ 404 handler - LAST (सगळ्यात शेवटी)
-app.use((req, res) => {
-    res.status(404).json({ success: false, message: 'Route not found' });
+// Catch all — serve index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/src/pages/index.html'));
 });
 
 // Error middleware
