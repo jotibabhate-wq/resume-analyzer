@@ -1555,3 +1555,24 @@ a:hover {
     font-size: 12px;
     color: #555570;
 }
+
+/* ===== EMAIL BUTTON ===== */
+.btn-email {
+    background: linear-gradient(135deg, #0072c6, #00b4d8);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-email:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 114, 198, 0.4);
+}

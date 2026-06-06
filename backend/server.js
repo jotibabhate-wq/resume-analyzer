@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, '../frontend/src/js')));
 app.use('/api/resume', require('./routes/resume.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/history', require('./routes/history.routes'));
+app.use('/api/email', require('./routes/email.routes'));
 
 // HTML page routes
 app.get('/', (req, res) => {

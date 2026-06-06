@@ -4,6 +4,49 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'index.html';
         return;
     }
+    // Send Email button
+    const sendEmailBtn = document.getElementById('sendEmailBtn');
+    if (sendEmailBtn) {
+        sendEmailBtn.addEventListener('click', async () => {
+            const stored = localStorage.getItem('analysisData');
+            if (!stored) {
+                showToast('No analysis data found!', 'error');
+                return;
+            }
+
+            const parsed = JSON.parse(stored);
+            const analysisId = parsed.analysis?._id || parsed._id;
+
+            if (!analysisId) {
+                showToast('Analysis ID not found!', 'error');
+                return;
+            }
+
+            sendEmailBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            sendEmailBtn.disabled = true;
+
+            try {
+                const res = await API.sendEmailReport(analysisId);
+
+                if (res.success) {
+                    showToast('✅ Report sent to your email!', 'success');
+                    sendEmailBtn.innerHTML = '<i class="fas fa-check"></i> Email Sent!';
+                    setTimeout(() => {
+                        sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
+                        sendEmailBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    showToast(res.message || 'Failed to send email', 'error');
+                    sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
+                    sendEmailBtn.disabled = false;
+                }
+            } catch (err) {
+                showToast('Something went wrong', 'error');
+                sendEmailBtn.innerHTML = '<i class="fas fa-envelope"></i> Send to Email';
+                sendEmailBtn.disabled = false;
+            }
+        });
+    }
 
     let analysisData = null;
 

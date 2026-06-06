@@ -10,6 +10,15 @@ const getHeaders = () => ({
 
 // ===== AUTH APIs =====
 const API = {
+    // Send email report
+    sendEmailReport: async (analysisId) => {
+        const res = await fetch(`${API_BASE}/email/send-report`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify({ analysisId })
+        });
+        return res.json();
+    },
 
     // Register user
     register: async (name, email, password) => {
