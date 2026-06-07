@@ -10,6 +10,52 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script>
+        window.handleGoogleLogin = async function (response) {
+            try {
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) loadingEl.classList.add('active');
+
+                const baseUrl = window.location.hostname === 'localhost'
+                    ? 'http://localhost:5000'
+                    : 'https://resume-analyzer-7y62.onrender.com';
+
+                const res = await fetch(`${baseUrl}/api/google/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ credential: response.credential })
+                });
+
+                const data = await res.json();
+                if (loadingEl) loadingEl.classList.remove('active');
+
+                if (data.success) {
+                    localStorage.setItem('token', data.data.token);
+                    localStorage.setItem('user', JSON.stringify(data.data));
+                    document.getElementById('loginModal')?.classList.remove('active');
+                    document.getElementById('registerModal')?.classList.remove('active');
+                    const toast = document.getElementById('toast');
+                    if (toast) {
+                        toast.textContent = '✅ Welcome ' + data.data.name + '!';
+                        toast.className = 'toast success show';
+                        setTimeout(() => { toast.className = 'toast'; }, 3000);
+                    }
+                    setTimeout(() => { window.location.reload(); }, 1000);
+                } else {
+                    const toast = document.getElementById('toast');
+                    if (toast) {
+                        toast.textContent = data.message || 'Google login failed';
+                        toast.className = 'toast error show';
+                        setTimeout(() => { toast.className = 'toast'; }, 3000);
+                    }
+                }
+            } catch (err) {
+                console.error('Google login error:', err);
+            }
+        };
+    </script>
+
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
@@ -228,7 +274,7 @@
                 <div class="divider"><span>OR continue with</span></div>
                 <div id="g_id_onload"
                     data-client_id="202305989323-9qcms2ls6rhrsda7c63efhfq79hlc6qo.apps.googleusercontent.com"
-                    data-context=" signin" data-ux_mode="popup" data-callback="handleGoogleLogin"
+                    data-context="signin" data-ux_mode="popup" data-callback="handleGoogleLogin"
                     data-auto_select="false" data-itp_support="true">
                 </div>
                 <div class="google-btn-wrapper">
