@@ -300,3 +300,59 @@ document.addEventListener('DOMContentLoaded', () => {
         loadHistoryPage();
     }
 });
+
+// ===== STATS COUNTER ANIMATION =====
+const animateStats = () => {
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            stat.textContent = Math.floor(current).toLocaleString();
+        }, 16);
+    });
+};
+
+// Trigger stats animation when visible
+const statsSection = document.querySelector('.stats-section');
+if (statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateStats();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(statsSection);
+}
+
+// CTA button
+document.getElementById('ctaUploadBtn')?.addEventListener('click', () => {
+    if (!localStorage.getItem('token')) {
+        openModal('loginModal');
+    } else {
+        openModal('uploadModal');
+    }
+});
+
+// Footer login/register links
+document.getElementById('footerLogin')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal('loginModal');
+});
+
+document.getElementById('footerRegister')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal('registerModal');
+});
