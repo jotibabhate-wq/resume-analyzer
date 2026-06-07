@@ -2013,3 +2013,530 @@ a:hover {
         align-items: flex-start;
     }
 }
+
+/* ===================================================
+   MOBILE RESPONSIVE - Complete
+   =================================================== */
+
+/* ===== TABLET (max 1024px) ===== */
+@media (max-width: 1024px) {
+
+    .hero {
+        padding: 60px 24px;
+        gap: 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+
+    .details-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .match-details-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pdf-scores-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===== MOBILE (max 768px) ===== */
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .navbar {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .nav-brand span {
+        font-size: 17px;
+    }
+
+    .nav-brand i {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .btn-login,
+    .btn-logout {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    /* Hero */
+    .hero {
+        flex-direction: column;
+        padding: 32px 16px;
+        text-align: center;
+        gap: 32px;
+    }
+
+    .hero-content {
+        order: 1;
+    }
+
+    .hero-image {
+        order: 2;
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 28px;
+        letter-spacing: -0.01em;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .hero-card {
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto;
+    }
+
+    /* Features */
+    .features {
+        padding: 48px 16px;
+    }
+
+    .features h2 {
+        font-size: 26px;
+        margin-bottom: 32px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .feature-card {
+        padding: 24px 20px;
+    }
+
+    .feature-card i {
+        font-size: 30px;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95vw !important;
+        border-radius: 16px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        padding: 18px 20px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: 17px;
+    }
+
+    .modal-body {
+        padding: 18px 20px 24px;
+    }
+
+    .google-btn-wrapper iframe {
+        width: 100% !important;
+    }
+
+    /* Upload Area */
+    .upload-area {
+        padding: 32px 16px;
+    }
+
+    .upload-area i {
+        font-size: 36px;
+    }
+
+    /* Dashboard */
+    .dashboard {
+        padding: 12px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .score-summary {
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .score-details {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .score-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+    }
+
+    .score-item i {
+        font-size: 22px;
+    }
+
+    .score-item span {
+        font-size: 22px;
+    }
+
+    .resume-info {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .big-score {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .score-ring {
+        width: 80px;
+        height: 80px;
+        font-size: 26px;
+    }
+
+    /* Charts */
+    .charts-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .chart-card {
+        padding: 16px;
+    }
+
+    /* Details */
+    .details-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .detail-card {
+        padding: 16px;
+    }
+
+    /* Suggestions */
+    .suggestions-card {
+        padding: 16px;
+    }
+
+    .suggestion-item {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+
+    /* Summary */
+    .summary-card {
+        padding: 16px;
+    }
+
+    /* Job Matcher */
+    .job-matcher-card {
+        padding: 16px;
+    }
+
+    .match-details-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .match-score-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .match-score-circle {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+    }
+
+    .match-score-circle span {
+        font-size: 26px;
+    }
+
+    /* Actions */
+    .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .actions-row button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-download,
+    .btn-email {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* History Page */
+    .history-page {
+        padding: 16px;
+    }
+
+    .history-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .history-header h1 {
+        font-size: 22px;
+    }
+
+    .history-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .history-card {
+        padding: 16px;
+    }
+
+    .history-meta {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* Score Bars in Hero */
+    .score-bar span:first-child {
+        min-width: 60px;
+        font-size: 11px;
+    }
+
+    .score-bar span:last-child {
+        min-width: 32px;
+        font-size: 11px;
+    }
+
+    /* PDF Scores */
+    .pdf-scores-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Step Items in How it Works */
+    .step-item {
+        padding: 14px;
+    }
+
+    .step-number {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .step-content h3 {
+        font-size: 14px;
+    }
+
+    .step-content p {
+        font-size: 13px;
+    }
+
+    /* Toast */
+    .toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        text-align: center;
+    }
+}
+
+/* ===== SMALL MOBILE (max 480px) ===== */
+@media (max-width: 480px) {
+
+    .hero-content h1 {
+        font-size: 24px;
+    }
+
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .nav-brand span {
+        font-size: 15px;
+    }
+
+    .hero-card {
+        padding: 20px 16px;
+    }
+
+    .score-circle span {
+        font-size: 48px;
+    }
+
+    .modal-content {
+        width: 98vw !important;
+        border-radius: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 16px;
+        font-size: 13px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .features h2 {
+        font-size: 22px;
+    }
+
+    .feature-card h3 {
+        font-size: 16px;
+    }
+
+    .history-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-view,
+    .btn-delete {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .dashboard-header {
+        padding: 16px 12px;
+    }
+
+    .chart-card h3 {
+        font-size: 14px;
+    }
+
+    .detail-card h3 {
+        font-size: 14px;
+    }
+
+    .skill-tag,
+    .keyword-tag {
+        font-size: 12px;
+        padding: 3px 10px;
+    }
+
+    .match-score-circle {
+        width: 70px;
+        height: 70px;
+    }
+
+    .match-score-circle span {
+        font-size: 22px;
+    }
+
+    .job-input-area textarea {
+        font-size: 13px;
+    }
+
+    .btn-match {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* ===== EXTRA SMALL (max 360px) ===== */
+@media (max-width: 360px) {
+
+    .hero-content h1 {
+        font-size: 22px;
+    }
+
+    .nav-brand span {
+        display: none;
+    }
+
+    .score-ring {
+        width: 70px;
+        height: 70px;
+        font-size: 22px;
+    }
+
+    .big-score p {
+        font-size: 12px;
+    }
+
+    .score-item span {
+        font-size: 18px;
+    }
+
+    .score-item small {
+        font-size: 10px;
+    }
+}
+
+/* ===== LANDSCAPE MOBILE ===== */
+@media (max-height: 500px) and (max-width: 768px) {
+
+    .modal-content {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    .hero {
+        padding: 20px 16px;
+    }
+
+    .hero-image {
+        display: none;
+    }
+}
