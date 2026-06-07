@@ -2,16 +2,19 @@
 <html lang="en">
 
 <head>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-signin-client_id"
+        content="203305989323-63rimbolnv14tm8a7t745qqafnm2m0s5.apps.googleusercontent.com">
     <title>Resume Analyzer - AI Powered</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
+
     <!-- How It Works Modal -->
     <div class="modal" id="howItWorksModal">
         <div class="modal-content" style="width:600px">
@@ -20,7 +23,6 @@
                 <button class="modal-close" id="howItWorksClose">&times;</button>
             </div>
             <div class="modal-body">
-
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <div class="step-content">
@@ -28,7 +30,6 @@
                         <p>Upload your resume in PDF, DOC or DOCX format. Max size 5MB.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -37,7 +38,6 @@
                             compatibility.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -45,7 +45,6 @@
                         <p>You get an overall score out of 100 with ATS score, skills found and missing skills.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">4</div>
                     <div class="step-content">
@@ -53,7 +52,6 @@
                         <p>Receive personalized AI suggestions to improve your resume and get more interviews.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">5</div>
                     <div class="step-content">
@@ -61,11 +59,9 @@
                         <p>All your analyses are saved so you can track your improvement over time.</p>
                     </div>
                 </div>
-
                 <button class="btn-analyze" onclick="closeModal('howItWorksModal')">
                     <i class="fas fa-rocket"></i> Get Started Now
                 </button>
-
             </div>
         </div>
     </div>
@@ -201,8 +197,6 @@
     </div>
 
     <!-- Login Modal -->
-
-    <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -234,7 +228,8 @@
                 <div class="divider"><span>OR continue with</span></div>
                 <div id="g_id_onload"
                     data-client_id="203305989323-63rimbolnv14tm8a7t745qqafnm2m0s5.apps.googleusercontent.com"
-                    data-callback="handleGoogleLogin" data-auto_prompt="false">
+                    data-context="signin" data-ux_mode="popup" data-callback="handleGoogleLogin"
+                    data-auto_select="false" data-itp_support="true">
                 </div>
                 <div class="google-btn-wrapper">
                     <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
@@ -244,7 +239,7 @@
             </div>
         </div>
     </div>
-    <!-- Register Modal -->
+
     <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
@@ -290,6 +285,7 @@
             </div>
         </div>
     </div>
+
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
@@ -302,6 +298,7 @@
     <script src="../js/api.js"></script>
     <script src="../js/upload.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>
