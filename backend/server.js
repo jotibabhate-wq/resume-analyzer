@@ -31,11 +31,13 @@ app.use(express.static(path.join(__dirname, '../frontend/src/pages')));
 app.use(express.static(path.join(__dirname, '../frontend/src/css')));
 app.use(express.static(path.join(__dirname, '../frontend/src/js')));
 
+
 // API Routes
 app.use('/api/resume', require('./routes/resume.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/history', require('./routes/history.routes'));
 app.use('/api/email', require('./routes/email.routes'));
+app.use('/api/google', require('./routes/google.routes'));
 
 // HTML page routes
 app.get('/', (req, res) => {
