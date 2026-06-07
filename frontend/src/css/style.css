@@ -2496,47 +2496,52 @@ a:hover {
 
 /* ===== EXTRA SMALL (max 360px) ===== */
 @media (max-width: 360px) {
-
-    .hero-content h1 {
-        font-size: 22px;
-    }
-
     .nav-brand span {
-        display: none;
-    }
-
-    .score-ring {
-        width: 70px;
-        height: 70px;
-        font-size: 22px;
-    }
-
-    .big-score p {
-        font-size: 12px;
-    }
-
-    .score-item span {
-        font-size: 18px;
-    }
-
-    .score-item small {
-        font-size: 10px;
+        display: block;
+        font-size: 14px;
     }
 }
 
 /* ===== LANDSCAPE MOBILE ===== */
-@media (max-height: 500px) and (max-width: 768px) {
-
-    .modal-content {
-        max-height: 95vh;
-        overflow-y: auto;
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 16px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
     }
 
-    .hero {
-        padding: 20px 16px;
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
     }
 
-    .hero-image {
-        display: none;
+    .nav-brand span {
+        display: block !important;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .nav-brand i {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .btn-login,
+    .btn-logout {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }
