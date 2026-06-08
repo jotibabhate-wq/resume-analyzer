@@ -16,20 +16,16 @@
             try {
                 const loadingEl = document.getElementById('loading');
                 if (loadingEl) loadingEl.classList.add('active');
-
                 const baseUrl = window.location.hostname === 'localhost'
                     ? 'http://localhost:5000'
                     : 'https://resume-analyzer-7y62.onrender.com';
-
                 const res = await fetch(`${baseUrl}/api/google/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ credential: response.credential })
                 });
-
                 const data = await res.json();
                 if (loadingEl) loadingEl.classList.remove('active');
-
                 if (data.success) {
                     localStorage.setItem('token', data.data.token);
                     localStorage.setItem('user', JSON.stringify(data.data));
@@ -37,7 +33,7 @@
                     document.getElementById('registerModal')?.classList.remove('active');
                     const toast = document.getElementById('toast');
                     if (toast) {
-                        toast.textContent = '✅ Welcome ' + data.data.name + '!';
+                        toast.textContent = 'Welcome ' + data.data.name + '!';
                         toast.className = 'toast success show';
                         setTimeout(() => { toast.className = 'toast'; }, 3000);
                     }
@@ -55,15 +51,295 @@
             }
         };
     </script>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
 
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="nav-brand-icon"><i class="fas fa-brain"></i></div>
+            <span>Resume Analyzer</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="history.html">History</a>
+            <button class="btn-logout" id="logoutBtn" style="display:none">Logout</button>
+            <button class="btn-login" id="loginBtn">Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <i class="fas fa-star"></i> AI-Powered Resume Analysis
+        </div>
+        <h1>Make Your Resume Stand Out <span class="highlight">with AI</span></h1>
+        <p>Get instant feedback on your resume — ATS score, skill gaps, keywords, and personalized suggestions in
+            seconds.</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" id="uploadBtn">
+                <i class="fas fa-upload"></i> Upload Resume
+            </button>
+            <button class="btn-secondary" id="learnBtn">
+                <i class="fas fa-play"></i> How it works
+            </button>
+        </div>
+
+        <!-- Hero Stats inline -->
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <strong>10,000+</strong>
+                <span>Resumes analyzed</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <strong>95%</strong>
+                <span>Accuracy rate</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <strong>5,000+</strong>
+                <span>Happy users</span>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+                <strong>Free</strong>
+                <span>No credit card</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <div class="section-label">What we analyze</div>
+            <h2>Everything your resume needs</h2>
+            <p>Our AI checks every aspect of your resume to help you land more interviews</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                <h3>ATS Compatibility</h3>
+                <p>Check if your resume passes Applicant Tracking Systems used by top companies</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-code"></i></div>
+                <h3>Skills Matching</h3>
+                <p>Identify your existing skills and find out what skills you are missing</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-key"></i></div>
+                <h3>Keyword Extraction</h3>
+                <p>Extract important keywords from your resume to improve visibility</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                <h3>Overall Score</h3>
+                <p>Get a clear score out of 100 based on multiple resume factors</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+                <h3>Smart Suggestions</h3>
+                <p>Receive personalized tips to improve your resume and land more interviews</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-history"></i></div>
+                <h3>Analysis History</h3>
+                <p>Track all your previous resume analyses and improvements over time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works Section -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <div class="section-label">Process</div>
+            <h2>How it works</h2>
+            <p>Get your resume analyzed in 3 simple steps</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-icon"><i class="fas fa-upload"></i></div>
+                <h3>Upload Resume</h3>
+                <p>Upload your resume in PDF, DOC or DOCX format. Max size 5MB.</p>
+            </div>
+            <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Analyzes It</h3>
+                <p>Our AI engine reads your resume and extracts skills, keywords and checks ATS.</p>
+            </div>
+            <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Get Your Report</h3>
+                <p>Receive a detailed report with score, suggestions and download as PDF.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <div class="section-label">Testimonials</div>
+            <h2>What our users say</h2>
+            <p>Join thousands of job seekers who improved their resumes with AI</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Got 3 interview calls in one week after fixing my resume. The ATS checker
+                    was a complete game changer for me!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">R</div>
+                    <div>
+                        <div class="author-name">Rahul Sharma</div>
+                        <div class="author-role">Software Engineer at TCS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card featured">
+                <div class="featured-badge">Most Helpful</div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The job description matcher showed me exactly what skills to add. My
+                    callback rate literally doubled in 2 weeks!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">P</div>
+                    <div>
+                        <div class="author-name">Priya Patel</div>
+                        <div class="author-role">Data Analyst at Infosys</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Best free resume analyzer I have used. The PDF report is brilliant — I
+                    shared it with my mentor for feedback!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">A</div>
+                    <div>
+                        <div class="author-name">Amit Kumar</div>
+                        <div class="author-role">Full Stack Developer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Got my dream job at a top MNC after using Resume Analyzer! The AI
+                    suggestions were spot on and very actionable."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">S</div>
+                    <div>
+                        <div class="author-name">Sneha Reddy</div>
+                        <div class="author-role">UI/UX Designer at Wipro</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"I never knew my resume was failing ATS checks. After fixing it using this
+                    tool my interview rate went up 3x!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">V</div>
+                    <div>
+                        <div class="author-name">Vikram Singh</div>
+                        <div class="author-role">Backend Developer at HCL</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The keyword extraction helped me tailor my resume for each job. Simple,
+                    fast and incredibly useful tool!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">N</div>
+                    <div>
+                        <div class="author-name">Neha Joshi</div>
+                        <div class="author-role">HR Manager at Accenture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <div class="cta-icon"><i class="fas fa-rocket"></i></div>
+            <h2>Ready to land your dream job?</h2>
+            <p>Join 5,000+ job seekers who already improved their resumes with AI — completely free, no credit card
+                needed.</p>
+            <button class="btn-cta" id="ctaUploadBtn">
+                <i class="fas fa-upload"></i> Analyze my resume — it's free
+            </button>
+            <div class="cta-trust">
+                <span><i class="fas fa-shield-alt"></i> No account needed</span>
+                <span><i class="fas fa-bolt"></i> Results in seconds</span>
+                <span><i class="fas fa-lock"></i> Your data is safe</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand-col">
+                <div class="footer-logo">
+                    <i class="fas fa-brain"></i>
+                    <span>Resume Analyzer</span>
+                </div>
+                <p>AI-powered resume analysis that helps you land your dream job faster. Free to use, no ads ever.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/jotibabhate-wq/resume-analyzer" class="social-btn" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Features</h4>
+                <ul>
+                    <li><a href="#">ATS Checker</a></li>
+                    <li><a href="#">Skills Matcher</a></li>
+                    <li><a href="#">Keyword Extractor</a></li>
+                    <li><a href="#">Job Description Match</a></li>
+                    <li><a href="#">PDF Report</a></li>
+                    <li><a href="#">Email Report</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="#" id="footerLogin">Login</a></li>
+                    <li><a href="#" id="footerRegister">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> jotibabhate@gmail.com</li>
+                    <li><i class="fas fa-globe"></i> resume-analyzer-7y62.onrender.com</li>
+                    <li><i class="fab fa-github"></i> github.com/jotibabhate-wq</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Resume Analyzer · Built with Node.js, Python & MongoDB</span>
+            <span>Free · No ads · Open source</span>
+        </div>
+    </footer>
+
     <!-- How It Works Modal -->
     <div class="modal" id="howItWorksModal">
-        <div class="modal-content" style="width:600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2><i class="fas fa-play-circle"></i> How It Works</h2>
                 <button class="modal-close" id="howItWorksClose">&times;</button>
@@ -80,8 +356,8 @@
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>🤖 AI Analyzes It</h3>
-                        <p>Our Python AI engine reads your resume and extracts skills, keywords, and checks ATS
-                            compatibility.</p>
+                        <p>Our AI engine reads your resume and extracts skills, keywords and checks ATS compatibility.
+                        </p>
                     </div>
                 </div>
                 <div class="step-item">
@@ -111,311 +387,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <i class="fas fa-brain"></i>
-            <span>Resume Analyzer</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="history.html">History</a>
-            <button class="btn-logout" id="logoutBtn" style="display:none">Logout</button>
-            <button class="btn-login" id="loginBtn">Login</button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Analyze Your Resume <span class="highlight">with AI</span></h1>
-            <p>Get instant feedback on your resume, ATS score, skill gaps, and personalized suggestions powered by AI
-            </p>
-            <div class="hero-buttons">
-                <button class="btn-primary" id="uploadBtn">
-                    <i class="fas fa-upload"></i> Upload Resume
-                </button>
-                <button class="btn-secondary" id="learnBtn">
-                    <i class="fas fa-play"></i> How it works
-                </button>
-            </div>
-        </div>
-        <div class="hero-image">
-            <div class="hero-card">
-                <div class="hero-card-header">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Resume Score</span>
-                </div>
-                <div class="score-circle">
-                    <span>85</span>
-                    <small>/ 100</small>
-                </div>
-                <div class="score-bars">
-                    <div class="score-bar">
-                        <span>ATS Score</span>
-                        <div class="bar">
-                            <div class="bar-fill" style="width:80%"></div>
-                        </div>
-                        <span>80%</span>
-                    </div>
-                    <div class="score-bar">
-                        <span>Skills</span>
-                        <div class="bar">
-                            <div class="bar-fill" style="width:90%"></div>
-                        </div>
-                        <span>90%</span>
-                    </div>
-                    <div class="score-bar">
-                        <span>Keywords</span>
-                        <div class="bar">
-                            <div class="bar-fill" style="width:75%"></div>
-                        </div>
-                        <span>75%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <h2>What We Analyze</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-robot"></i>
-                <h3>ATS Compatibility</h3>
-                <p>Check if your resume passes Applicant Tracking Systems used by top companies</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-code"></i>
-                <h3>Skills Matching</h3>
-                <p>Identify your existing skills and find out what skills you are missing</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-key"></i>
-                <h3>Keyword Extraction</h3>
-                <p>Extract important keywords from your resume to improve visibility</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-chart-line"></i>
-                <h3>Overall Score</h3>
-                <p>Get a comprehensive score based on multiple factors of your resume</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-lightbulb"></i>
-                <h3>Smart Suggestions</h3>
-                <p>Receive personalized tips to improve your resume and land more interviews</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-history"></i>
-                <h3>Analysis History</h3>
-                <p>Track all your previous resume analyses and improvements over time</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== STATS SECTION ===== -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number" data-target="10000">0</div>
-                <div class="stat-plus">+</div>
-                <div class="stat-label">Resumes Analyzed</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="95">0</div>
-                <div class="stat-plus">%</div>
-                <div class="stat-label">Accuracy Rate</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="5000">0</div>
-                <div class="stat-plus">+</div>
-                <div class="stat-label">Happy Users</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="50">0</div>
-                <div class="stat-plus">+</div>
-                <div class="stat-label">Job Roles Covered</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== TESTIMONIALS SECTION ===== -->
-    <section class="testimonials-section">
-        <div class="testimonials-container">
-            <div class="section-badge">⭐ Testimonials</div>
-            <h2>What Our Users Say</h2>
-            <p class="section-subtitle">Join thousands of job seekers who improved their resumes with AI</p>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Resume Analyzer helped me identify key skills I was missing.
-                        After improving my resume I got 3 interview calls in one week!"
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">R</div>
-                        <div class="author-info">
-                            <h4>Rahul Sharma</h4>
-                            <span>Software Engineer at TCS</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card featured">
-                    <div class="testimonial-badge">Most Helpful</div>
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "The ATS score feature is amazing! I never knew my resume was
-                        failing ATS checks. After fixing it my callback rate doubled!"
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">P</div>
-                        <div class="author-info">
-                            <h4>Priya Patel</h4>
-                            <span>Data Analyst at Infosys</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "The job description matcher is a game changer! It showed me
-                        exactly what skills to add for each job I applied to."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div class="author-info">
-                            <h4>Amit Kumar</h4>
-                            <span>Full Stack Developer</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Got my dream job at a top MNC after using Resume Analyzer!
-                        The AI suggestions were spot on and very actionable."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">S</div>
-                        <div class="author-info">
-                            <h4>Sneha Reddy</h4>
-                            <span>UI/UX Designer at Wipro</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "The PDF report feature is brilliant! I downloaded my analysis
-                        and shared it with my mentor to get better feedback."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">V</div>
-                        <div class="author-info">
-                            <h4>Vikram Singh</h4>
-                            <span>Backend Developer at HCL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Best free resume analyzer I have used! The keyword extraction
-                        helped me tailor my resume for each job application."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">N</div>
-                        <div class="author-info">
-                            <h4>Neha Joshi</h4>
-                            <span>HR Manager at Accenture</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CTA SECTION ===== -->
-    <section class="cta-section">
-        <div class="cta-container">
-            <div class="cta-content">
-                <h2>Ready to Land Your Dream Job?</h2>
-                <p>Join 5000+ job seekers who already improved their resumes with AI</p>
-                <button class="btn-cta" id="ctaUploadBtn">
-                    <i class="fas fa-rocket"></i> Analyze My Resume Now — It's Free!
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <i class="fas fa-brain"></i>
-                        <span>Resume Analyzer</span>
-                    </div>
-                    <p>AI-powered resume analysis tool that helps you land your dream job faster.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-links">
-                    <h4>Features</h4>
-                    <ul>
-                        <li><a href="#">ATS Checker</a></li>
-                        <li><a href="#">Skills Matcher</a></li>
-                        <li><a href="#">Keyword Extractor</a></li>
-                        <li><a href="#">Job Description Match</a></li>
-                        <li><a href="#">PDF Report</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="history.html">History</a></li>
-                        <li><a href="#" id="footerLogin">Login</a></li>
-                        <li><a href="#" id="footerRegister">Register</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> jotibabhate@gmail.com</li>
-                        <li><i class="fas fa-globe"></i> resume-analyzer-7y62.onrender.com</li>
-                        <li><i class="fab fa-github"></i> github.com/jotibabhate-wq</li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 Resume Analyzer. Built with ❤️ using Node.js, Python & MongoDB</p>
-                <p>Powered by AI • Free to use • No ads</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Upload Modal -->
     <div class="modal" id="uploadModal">
@@ -469,10 +440,7 @@
                 <button class="btn-analyze" id="loginSubmit">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
-                <p class="switch-form">
-                    Don't have an account?
-                    <a href="#" id="switchToRegister">Register here</a>
-                </p>
+                <p class="switch-form">Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
                 <div class="divider"><span>OR continue with</span></div>
                 <div id="g_id_onload"
                     data-client_id="202305989323-9qcms2ls6rhrsda7c63efhfq79hlc6qo.apps.googleusercontent.com"
@@ -520,10 +488,7 @@
                 <button class="btn-analyze" id="registerSubmit">
                     <i class="fas fa-user-plus"></i> Create Account
                 </button>
-                <p class="switch-form">
-                    Already have an account?
-                    <a href="#" id="switchToLogin">Login here</a>
-                </p>
+                <p class="switch-form">Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
                 <div class="divider"><span>OR continue with</span></div>
                 <div class="google-btn-wrapper">
                     <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
@@ -534,10 +499,10 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- Loading Spinner -->
+    <!-- Loading -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
         <p>Analyzing your resume...</p>
@@ -546,7 +511,6 @@
     <script src="../js/api.js"></script>
     <script src="../js/upload.js"></script>
     <script src="../js/main.js"></script>
-
 </body>
 
 </html>

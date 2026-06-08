@@ -356,3 +356,23 @@ document.getElementById('footerRegister')?.addEventListener('click', (e) => {
     e.preventDefault();
     openModal('registerModal');
 });
+
+// CTA button
+document.getElementById('ctaUploadBtn')?.addEventListener('click', () => {
+    if (!localStorage.getItem('token')) {
+        openModal('loginModal');
+    } else {
+        openModal('uploadModal');
+    }
+});
+
+// Footer links
+document.getElementById('footerLogin')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal('loginModal');
+});
+
+document.getElementById('footerRegister')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal('registerModal');
+});
