@@ -38,6 +38,12 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/history', require('./routes/history.routes'));
 app.use('/api/email', require('./routes/email.routes'));
 app.use('/api/google', require('./routes/google.routes'));
+app.use('/api/password', require('./routes/password.routes'));
+
+// Reset password page route
+app.get('/reset-password.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/src/pages/reset-password.html'));
+});
 
 // HTML page routes
 app.get('/', (req, res) => {

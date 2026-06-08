@@ -18,6 +18,22 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         minlength: 6
     },
+    googleId: {
+        type: String,
+        default: null
+    },
+    picture: {
+        type: String,
+        default: null
+    },
+    resetPasswordToken: {
+        type: String,
+        default: null
+    },
+    resetPasswordExpire: {
+        type: Date,
+        default: null
+    },
     createdAt: {
         type: Date,
         default: Date.now

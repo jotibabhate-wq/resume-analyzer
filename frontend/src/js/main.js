@@ -1,33 +1,40 @@
 // ===== GOOGLE LOGIN CALLBACK =====
-const handleGoogleLogin = async (response) => {
+window.handleGoogleLogin = async (response) => {
     try {
         showLoading();
-        const res = await API.googleLogin(response.credential);
+        const baseUrl = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://resume-analyzer-7y62.onrender.com';
+        const res = await fetch(`${baseUrl}/api/google/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
         hideLoading();
-
-        if (res.success) {
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', JSON.stringify(res.data));
+        if (data.success) {
+            localStorage.setItem('token', data.data.token);
+            localStorage.setItem('user', JSON.stringify(data.data));
             closeModal('loginModal');
             closeModal('registerModal');
             checkAuth();
-            showToast('✅ Google login successful!', 'success');
+            showToast('Welcome ' + data.data.name + '!', 'success');
+            setTimeout(() => { window.location.reload(); }, 1000);
         } else {
-            showToast(res.message || 'Google login failed', 'error');
+            showToast(data.message || 'Google login failed', 'error');
         }
     } catch (err) {
         hideLoading();
         showToast('Google login failed', 'error');
     }
 };
+
 // ===== CHECK AUTH =====
 const checkAuth = () => {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user') || 'null');
-
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-
     if (token && user) {
         if (loginBtn) loginBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'block';
@@ -37,27 +44,13 @@ const checkAuth = () => {
     }
 };
 
-// How it works button
-document.getElementById('learnBtn')
-    ?.addEventListener('click', () => {
-        openModal('howItWorksModal');
-    });
-
-// How it works close
-document.getElementById('howItWorksClose')
-    ?.addEventListener('click', () => {
-        closeModal('howItWorksModal');
-    });
-
 // ===== SHOW TOAST =====
 const showToast = (message, type = 'success') => {
     const toast = document.getElementById('toast');
     if (!toast) return;
     toast.textContent = message;
     toast.className = `toast ${type} show`;
-    setTimeout(() => {
-        toast.className = 'toast';
-    }, 3000);
+    setTimeout(() => { toast.className = 'toast'; }, 3000);
 };
 
 // ===== SHOW LOADING =====
@@ -88,17 +81,14 @@ const closeModal = (id) => {
 const handleLogin = async () => {
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
-
     if (!email || !password) {
         showToast('Please fill all fields', 'error');
         return;
     }
-
     try {
         showLoading();
         const res = await API.login(email, password);
         hideLoading();
-
         if (res.success) {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data));
@@ -119,17 +109,14 @@ const handleRegister = async () => {
     const name = document.getElementById('registerName').value.trim();
     const email = document.getElementById('registerEmail').value.trim();
     const password = document.getElementById('registerPassword').value.trim();
-
     if (!name || !email || !password) {
         showToast('Please fill all fields', 'error');
         return;
     }
-
     try {
         showLoading();
         const res = await API.register(name, email, password);
         hideLoading();
-
         if (res.success) {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data));
@@ -151,9 +138,42 @@ const handleLogout = () => {
     localStorage.removeItem('user');
     checkAuth();
     showToast('Logged out successfully', 'success');
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 1000);
+    setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+};
+
+// ===== FORGOT PASSWORD =====
+const handleForgotPassword = async () => {
+    const email = document.getElementById('forgotEmail').value.trim();
+    if (!email) {
+        showToast('Please enter your email', 'error');
+        return;
+    }
+    const btn = document.getElementById('forgotSubmit');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+    try {
+        const baseUrl = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000/api'
+            : 'https://resume-analyzer-7y62.onrender.com/api';
+        const res = await fetch(`${baseUrl}/password/forgot`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.success) {
+            showToast('Reset link sent to ' + email, 'success');
+            closeModal('forgotModal');
+            document.getElementById('forgotEmail').value = '';
+        } else {
+            showToast(data.message || 'Failed to send email', 'error');
+        }
+    } catch (err) {
+        showToast('Something went wrong', 'error');
+    } finally {
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+        btn.disabled = false;
+    }
 };
 
 // ===== LOAD HISTORY PAGE =====
@@ -161,19 +181,14 @@ const loadHistoryPage = async () => {
     const historyGrid = document.getElementById('historyGrid');
     const emptyState = document.getElementById('emptyState');
     const loadingState = document.getElementById('loadingState');
-
     if (!historyGrid) return;
-
     try {
         const res = await API.getHistory();
-
         if (loadingState) loadingState.style.display = 'none';
-
         if (!res.success || res.data.length === 0) {
             if (emptyState) emptyState.style.display = 'block';
             return;
         }
-
         res.data.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = `history-card delay-${Math.min(index + 1, 5)}`;
@@ -203,7 +218,6 @@ const loadHistoryPage = async () => {
       `;
             historyGrid.appendChild(card);
         });
-
     } catch (err) {
         if (loadingState) loadingState.style.display = 'none';
         showToast('Failed to load history', 'error');
@@ -281,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logoutBtn')
         ?.addEventListener('click', handleLogout);
 
-    // Upload button on hero
+    // Upload button
     document.getElementById('uploadBtn')
         ?.addEventListener('click', () => {
             if (!localStorage.getItem('token')) {
@@ -291,6 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+    // How it works
+    document.getElementById('learnBtn')
+        ?.addEventListener('click', () => openModal('howItWorksModal'));
+    document.getElementById('howItWorksClose')
+        ?.addEventListener('click', () => closeModal('howItWorksModal'));
+
     // Clear all history
     document.getElementById('clearAllBtn')
         ?.addEventListener('click', clearAllHistory);
@@ -299,80 +319,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('historyGrid')) {
         loadHistoryPage();
     }
-});
 
-// ===== STATS COUNTER ANIMATION =====
-const animateStats = () => {
-    const statNumbers = document.querySelectorAll('.stat-number');
-
-    statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            stat.textContent = Math.floor(current).toLocaleString();
-        }, 16);
-    });
-};
-
-// Trigger stats animation when visible
-const statsSection = document.querySelector('.stats-section');
-if (statsSection) {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStats();
-                observer.unobserve(entry.target);
+    // CTA button
+    document.getElementById('ctaUploadBtn')
+        ?.addEventListener('click', () => {
+            if (!localStorage.getItem('token')) {
+                openModal('loginModal');
+            } else {
+                openModal('uploadModal');
             }
         });
-    }, { threshold: 0.3 });
 
-    observer.observe(statsSection);
-}
+    // Footer links
+    document.getElementById('footerLogin')
+        ?.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('loginModal');
+        });
+    document.getElementById('footerRegister')
+        ?.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('registerModal');
+        });
 
-// CTA button
-document.getElementById('ctaUploadBtn')?.addEventListener('click', () => {
-    if (!localStorage.getItem('token')) {
-        openModal('loginModal');
-    } else {
-        openModal('uploadModal');
-    }
-});
+    // ===== FORGOT PASSWORD =====
+    document.getElementById('forgotPasswordLink')
+        ?.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal('loginModal');
+            openModal('forgotModal');
+        });
 
-// Footer login/register links
-document.getElementById('footerLogin')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('loginModal');
-});
+    document.getElementById('forgotModalClose')
+        ?.addEventListener('click', () => closeModal('forgotModal'));
 
-document.getElementById('footerRegister')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('registerModal');
-});
+    document.getElementById('forgotSubmit')
+        ?.addEventListener('click', handleForgotPassword);
 
-// CTA button
-document.getElementById('ctaUploadBtn')?.addEventListener('click', () => {
-    if (!localStorage.getItem('token')) {
-        openModal('loginModal');
-    } else {
-        openModal('uploadModal');
-    }
-});
-
-// Footer links
-document.getElementById('footerLogin')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('loginModal');
-});
-
-document.getElementById('footerRegister')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('registerModal');
+    document.getElementById('backToLogin')
+        ?.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal('forgotModal');
+            openModal('loginModal');
+        });
 });
