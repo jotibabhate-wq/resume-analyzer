@@ -155,21 +155,38 @@ const handleForgotPassword = async () => {
         const baseUrl = window.location.hostname === 'localhost'
             ? 'http://localhost:5000/api'
             : 'https://resume-analyzer-7y62.onrender.com/api';
+
+        // Step 1 — Get reset token from backend
         const res = await fetch(`${baseUrl}/password/forgot`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         });
         const data = await res.json();
-        if (data.success) {
-            showToast('Reset link sent to ' + email, 'success');
-            closeModal('forgotModal');
-            document.getElementById('forgotEmail').value = '';
-        } else {
-            showToast(data.message || 'Failed to send email', 'error');
+
+        if (!data.success) {
+            showToast(data.message || 'Failed', 'error');
+            return;
         }
+
+        // Step 2 — Send email via EmailJS
+        await emailjs.send(
+            'service_29ub2aj',
+            'template_ddvqpua',
+            {
+                to_email: data.userEmail,
+                user_name: data.userName,
+                reset_url: data.resetUrl
+            }
+        );
+
+        showToast('Reset link sent to ' + email + '!', 'success');
+        closeModal('forgotModal');
+        document.getElementById('forgotEmail').value = '';
+
     } catch (err) {
-        showToast('Something went wrong', 'error');
+        console.error('Forgot password error:', err);
+        showToast('Failed to send reset email. Try again.', 'error');
     } finally {
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
         btn.disabled = false;
@@ -342,24 +359,22 @@ document.addEventListener('DOMContentLoaded', () => {
             openModal('registerModal');
         });
 
-    // ===== FORGOT PASSWORD =====
+    // Forgot Password events
     document.getElementById('forgotPasswordLink')
         ?.addEventListener('click', (e) => {
             e.preventDefault();
             closeModal('loginModal');
             openModal('forgotModal');
         });
-
     document.getElementById('forgotModalClose')
         ?.addEventListener('click', () => closeModal('forgotModal'));
-
     document.getElementById('forgotSubmit')
         ?.addEventListener('click', handleForgotPassword);
-
     document.getElementById('backToLogin')
         ?.addEventListener('click', (e) => {
             e.preventDefault();
             closeModal('forgotModal');
             openModal('loginModal');
         });
+
 });
