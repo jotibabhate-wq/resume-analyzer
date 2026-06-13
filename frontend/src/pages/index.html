@@ -86,8 +86,6 @@
                 <i class="fas fa-play"></i> How it works
             </button>
         </div>
-
-        <!-- Hero Stats inline -->
         <div class="hero-stats">
             <div class="hero-stat">
                 <strong>10,000+</strong>
@@ -436,13 +434,6 @@
                         <i class="fas fa-lock"></i>
                         <input type="password" id="loginPassword" placeholder="Enter your password" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="input-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" />
-                    </div>
                     <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot password?</a>
                 </div>
                 <button class="btn-analyze" id="loginSubmit">
@@ -507,9 +498,6 @@
         </div>
     </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast"></div>
-
     <!-- Forgot Password Modal -->
     <div class="modal" id="forgotModal">
         <div class="modal-content">
@@ -539,15 +527,25 @@
         </div>
     </div>
 
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
     <!-- Loading -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
         <p>Analyzing your resume...</p>
     </div>
 
+    <!-- ✅ EmailJS ADDED HERE -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('Fot6ZaKefX52_uLqe');
+    </script>
+
     <script src="../js/api.js"></script>
     <script src="../js/upload.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>

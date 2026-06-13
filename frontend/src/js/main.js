@@ -172,7 +172,7 @@ const handleForgotPassword = async () => {
         // Step 2 — Send email via EmailJS
         await emailjs.send(
             'service_29ub2aj',
-            'template_ddvqpua',
+            'template_4gx9b2h',
             {
                 to_email: data.userEmail,
                 user_name: data.userName,
